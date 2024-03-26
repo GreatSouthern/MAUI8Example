@@ -1,10 +1,13 @@
 using MAUI8Example.Data;
+using System.Diagnostics;
 
 namespace MAUI8Example.Pages.Monkeys;
 
 public partial class ViewMonkeys : ContentPage
 {
-	MonkeyService monkeyService;
+    ~ViewMonkeys() => Debug.WriteLine("ViewMonkeys destructor");
+
+    MonkeyService monkeyService;
 	public ViewMonkeys(MonkeyService service)
 	{
 		InitializeComponent();
@@ -12,6 +15,8 @@ public partial class ViewMonkeys : ContentPage
 	}
     protected async override void OnAppearing()
     {
+        Debug.WriteLine("ViewMonkeys constructor");
+        GC.Collect();
         base.OnAppearing();
 		if(monkeyService._monkeys.Count() == 0)
 		{
@@ -39,6 +44,7 @@ public partial class ViewMonkeys : ContentPage
 
     private async void lvMonkey_ItemTapped(object sender, ItemTappedEventArgs e)
     {
+		GC.Collect();
 		MonkeyList selectedMonkey = (MonkeyList)e.Item;
 		await Shell.Current.GoToAsync($"monkeyDetails?Name={selectedMonkey.Name}");
     }

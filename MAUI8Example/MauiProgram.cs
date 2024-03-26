@@ -17,6 +17,7 @@ namespace MAUI8Example
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
             builder.Services.AddSingleton<MonkeyService>();
+            builder.Services.AddSingleton<MainPage>();
             builder.Services.AddTransient<MonkeyMenu>();
             builder.Services.AddTransient<ViewMonkeys>();
             builder.Services.AddTransient<MonkeyDetail>();
